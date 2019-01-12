@@ -16,6 +16,7 @@
     </properties>
 
     <repositories>
+
         <repository>
             <id>nukkitx-repo-release</id>
             <url>https://repo.nukkitx.com/release/</url>
