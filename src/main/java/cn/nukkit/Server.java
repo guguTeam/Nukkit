@@ -75,6 +75,8 @@ import cn.nukkit.utils.bugreport.ExceptionHandler;
 import co.aikar.timings.Timings;
 import com.google.common.base.Preconditions;
 
+import cn.nukkit.apiserver.*;
+
 import java.io.*;
 import java.nio.ByteOrder;
 import java.util.*;
@@ -88,6 +90,8 @@ public class Server {
 
     public static final String BROADCAST_CHANNEL_ADMINISTRATIVE = "nukkit.broadcast.admin";
     public static final String BROADCAST_CHANNEL_USERS = "nukkit.broadcast.user";
+
+    public Api api;
 
     private static Server instance = null;
 
@@ -247,6 +251,8 @@ public class Server {
 
         this.console = new CommandReader();
         //todo: VersionString 现在不必要
+
+        this.api = new Api(this);
 
         if (!new File(this.dataPath + "nukkit.yml").exists()) {
             this.getLogger().info(TextFormat.GREEN + "Welcome! Please choose a language first!");
@@ -511,6 +517,7 @@ public class Server {
             this.watchdog.start();
         }
 
+        this.api.init();
         this.start();
     }
 
@@ -709,6 +716,7 @@ public class Server {
         this.logger.info("Reloading...");
 
         this.logger.info("Saving levels...");
+        this.api.reload();
 
         for (Level level : this.levelArray) {
             level.save();
@@ -752,7 +760,7 @@ public class Server {
         if (this.hasStopped) {
             return;
         }
-
+        this.api.shutdown();
         try {
             isRunning.compareAndSet(true, false);
 
