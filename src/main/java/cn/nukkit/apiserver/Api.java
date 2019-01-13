@@ -1,30 +1,33 @@
 package cn.nukkit.apiserver;
 
 import cn.nukkit.Server;
+import cn.nukkit.apiserver.ws.WsClient;
 
 public class Api {
 
-private Server server;
+    private Server server;
+    private WsClient ws;
 
-public Api(Server server) {
-this.server = server;
-}
+    public Api(Server server) {
+        this.server = server;
+    }
 
-//server实例化完成之后，start之前
-public void init() {
-String ip = server.getConfig("api.ip", "127.0.0.1");
-String port = server.getConfig("api.port", "19132");
-server.getLogger().info(port);
-}
+    //server实例化完成之后，start之前
+    public void init() {
+        String ip = server.getConfig("api.ip", "127.0.0.1");
+        String port = server.getConfig("api.port", "19132");
+        this.ws = new WsClient(ip, Integer.valueOf(port));
+        server.getLogger().info(port);
+    }
 
-//server reload之前
-public void reload() {
+    //server reload之前
+    public void reload() {
 
-}
+    }
 
-//server forceShutdown之前
-public void shutdown() {
+    //server forceShutdown之前
+    public void shutdown() {
 
-}
+    }
 
 }
