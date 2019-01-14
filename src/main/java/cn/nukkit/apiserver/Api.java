@@ -5,7 +5,7 @@ import cn.nukkit.apiserver.ws.WsClient;
 
 public class Api {
 
-    //假如你改了这个，先commit，再push,好像按错了。 
+    //假如你改了这个，先commit，再push,好像按错了。 ojbk
     //gugugugu
     private Server server;
     private WsClient ws;
