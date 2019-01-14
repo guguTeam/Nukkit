@@ -6,6 +6,7 @@ import cn.nukkit.apiserver.ws.WsClient;
 public class Api {
 
     //假如你改了这个，先commit，再push
+    //假如别人改了这个，上传到了gayhub
 
     private Server server;
     private WsClient ws;
