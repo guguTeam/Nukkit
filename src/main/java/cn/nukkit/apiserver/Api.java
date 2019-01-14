@@ -17,7 +17,7 @@ public class Api {
         String ip = server.getConfig("api.ip", "127.0.0.1");
         String port = server.getConfig("api.port", "19132");
         this.ws = new WsClient(ip, Integer.valueOf(port));
-        server.getLogger().info(port);
+        server.getLogger().info(ip);
     }
 
     //server reload之前

@@ -2,8 +2,7 @@ package cn.nukkit.apiserver.ws;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
-import io.netty.buffer.EmptyByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -47,8 +46,8 @@ public class WsClient {
             ch = bootstrap.connect(uri.getHost(), uri.getPort()).sync().channel();
             handler.handshakeFuture().sync();
             ch.writeAndFlush(new TextWebSocketFrame("111"));
-            ByteBuf byteBuf = new EmptyByteBuf(ByteBufAllocator.DEFAULT);
-            byteBuf.setBytes(16, new byte[]{});
+            ByteBuf byteBuf = Unpooled.directBuffer(16);
+            byteBuf.writeBytes(new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x01});
             ch.writeAndFlush(new BinaryWebSocketFrame(byteBuf));
         }catch (Exception e) {
             e.printStackTrace();
